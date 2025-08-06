@@ -1,0 +1,235 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "speech",
+        "operation": "speechToText",
+        "additionalOptions": {},
+        "requestOptions": {}
+      },
+      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "5a42b1f9-8690-4669-8652-04eb9519b5fb",
+      "name": "Transcribe audio or video",
+      "credentials": {
+        "elevenLabsApi": {
+          "id": "PYhyfOFANn0Qo7VC",
+          "name": "ElevenLabs account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "serviceAccount",
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1A2DcFDaDt0PM9AAofbpkTrv0F6oSB2Gd",
+          "mode": "list",
+          "cachedResultName": "Lufflemuffs N8Ntesting",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1A2DcFDaDt0PM9AAofbpkTrv0F6oSB2Gd"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f4888bbb-1383-461c-949f-3d92ec035f31",
+      "name": "Google Drive Trigger",
+      "credentials": {
+        "googleApi": {
+          "id": "ZLEtYC6ZI9H4IpKJ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "6611f7d5-bc18-4ff0-8420-be3464367028",
+      "name": "Download file",
+      "credentials": {
+        "googleApi": {
+          "id": "ZLEtYC6ZI9H4IpKJ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tyTlofOW_l025iFsAYlJkaoN9K2rkMJF6pDkB4RjMlQ",
+          "mode": "list",
+          "cachedResultName": "Lufflemuffs N8Ntesting",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tyTlofOW_l025iFsAYlJkaoN9K2rkMJF6pDkB4RjMlQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 759632360,
+          "mode": "list",
+          "cachedResultName": "Sheet3",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tyTlofOW_l025iFsAYlJkaoN9K2rkMJF6pDkB4RjMlQ/edit#gid=759632360"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [
+            "text"
+          ],
+          "schema": [
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        960,
+        0
+      ],
+      "id": "f05beb6d-f647-4e2e-a15b-6b3a4b52e2b2",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "ZLEtYC6ZI9H4IpKJ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini-2025-04-14",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI-2025-04-14"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Summarize the entire meeting audio clearly and concisely in plain text — under 1500 characters total — and return the output in the following format:\n\ntitle: [short meeting topic or theme]\nsummary: [brief overview of the meeting — 1–2 lines]\n\nmain_points:\n- [key point 1]\n- [key point 2]\n...\n\naction_items:\n- [task 1]\n- [task 2]\n...\n\nfollow_up:\n- [required follow-up actions or reminders]\n\nstories:\n- [real-world example or anecdote from the meeting]\n\nreferences:\n- [any documents, URLs, or data mentioned]\n\narguments:\n- [opinions or contrasting perspectives shared]\n\nrelated_topics:\n- [any related ideas or themes]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        592,
+        0
+      ],
+      "id": "31baec22-1a94-4171-b1f8-1823b4c80a72",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "A8SiRrBuJ8JaqSs7",
+          "name": "OpenAi account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Transcribe audio or video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe audio or video": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f1e6f532-03da-4503-9e45-6b9b29b46a32",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4c4d6f7fce22d56e397af9b518b062f791d4ebb415c82c16d7faba974572213e"
+  },
+  "id": "DdlY864EAP6f1YXe",
+  "tags": []
+}
