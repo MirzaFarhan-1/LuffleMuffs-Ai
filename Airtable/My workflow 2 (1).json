@@ -1,0 +1,128 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Inquiry form",
+        "formDescription": "Enter your enquiries",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "Enter your name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Inquiry",
+              "placeholder": "Enter your inquiry",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f5d57470-ef95-46a9-afd0-c2d47364f0bc",
+      "name": "On form submission",
+      "webhookId": "e5a280d0-5126-4ee8-9cbf-d87da9994c00"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appuZAApldSXUZCat",
+          "mode": "list",
+          "cachedResultName": "LuffleMuffs",
+          "cachedResultUrl": "https://airtable.com/appuZAApldSXUZCat"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblD4HShcCAMSdWMy",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appuZAApldSXUZCat/tblD4HShcCAMSdWMy"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Innquiry": "={{ $json.Inquiry }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Innquiry",
+              "displayName": "Innquiry",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "64f15cba-5fa1-4d75-b664-53c02a2c2cf8",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Hkx2qfnTW3Gjn9DS",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "492ce518-f34d-4394-a673-37cb52c08907",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "03d30bd126ff8de97d49c4393799b162e099e7b0f8bc7de4764b71cb07978694"
+  },
+  "id": "t5JB47mimunxwVcN",
+  "tags": []
+}
